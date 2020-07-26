@@ -3,7 +3,8 @@ from django.db import models
 
 
 class User(AbstractUser):
-    followers = models.ManyToManyField('self', blank=True)
+    followers = models.ManyToManyField('self', blank=True, symmetrical=False, related_name="followersList")
+    following = models.ManyToManyField('self', blank=True, symmetrical=False, related_name="followingList")
 
 class Post(models.Model):
     id = models.AutoField(primary_key=True)

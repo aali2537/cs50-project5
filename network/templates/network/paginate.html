@@ -1,0 +1,40 @@
+{%block foo %}
+{% for each  in postList %}
+<div class="box">
+    <div class="row poster">
+        <div class="col text-left">
+            {{ each.poster }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-left">
+            {{ each.content }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-right timestamp">
+            {{ each.time }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-right">
+            <i class="fa fa-heart" data-user="{{ currentUser }}" data-postNumber={{ each.id }}> {{ each.likes }}</i>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% if postList.has_other_pages %}
+<div class="row pad-bottom">
+    <div class="col text-left">
+        {% if postList.has_previous %}
+        <a href="?p={{ postList.previous_page_number }}" class="btn btn-primary">Prev</a>
+        {% endif %}
+    </div>
+    <div class="col text-right">
+        {% if postList.has_next %}
+        <a href="?p={{ postList.next_page_number }}" class="btn btn-primary">Next</a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}
