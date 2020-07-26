@@ -3,19 +3,33 @@
 {% block body %}
 
     <h1>All Posts</h1>
-
-    {% for each  in postList %}
-        <table>
-            <tr>
-                <td>{{ each.poster }}</td>
-            </tr>
-            <tr>
-                <td>{{ each.content }}</td>
-            </tr>
-            <tr>
-                <td>{{ each.time }}</td>
-            </tr>
-        </table>
-    {% endfor %}
-
+    <input id="currentUser" type="hidden" value = "{{ currentUser }}">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+        {% for each  in postList %}
+        <div class ="box">
+            <div class="row poster">
+                <div class="col text-left">
+                    {{ each.poster }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-left">
+                    {{ each.content }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-right timestamp">
+                    {{ each.time }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-right">
+                    <i class="fa fa-heart" data-user="{{ currentUser }}" data-postNumber={{ each.id }}> {{ each.likes }}</i>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
 {% endblock %}
