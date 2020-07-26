@@ -79,3 +79,6 @@ def new_post(request):
 
         return HttpResponseRedirect(reverse("index"))
     return render(request, "network/newpost.html")
+
+def all_post(request):
+    return render(request, "network/allpost.html")
