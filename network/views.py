@@ -78,7 +78,18 @@ def new_post(request):
         Post.objects.create(poster = poster, content = content, time = time)
 
         return HttpResponseRedirect(reverse("index"))
+
+    #Else show user new post creation page    
     return render(request, "network/newpost.html")
 
 def all_post(request):
-    return render(request, "network/allpost.html")
+    # Grab all posts from database to pass to template
+    postList = Post.objects.all()
+
+    #Order posts by time and serialize time object
+    postList = postList.order_by("-time").all()
+    postList = [post.serialize for post in postList]
+
+    return render(request, "network/allpost.html", {
+        "postList": postList
+    })

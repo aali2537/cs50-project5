@@ -10,3 +10,11 @@ class Post(models.Model):
     content = models.TextField()
     time = models.DateTimeField()
     likes = models.IntegerField(default=0)
+
+    def serialize(self):
+        return {
+            "poster": self.poster,
+            "content": self.content,
+            "time": self.time.strftime("%I:%M %p - %b %d, %Y"),
+            "likes": self.likes
+        }
