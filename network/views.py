@@ -6,6 +6,7 @@ from django.urls import reverse
 from datetime import datetime
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 from .models import User, Post
 
@@ -86,10 +87,18 @@ def new_post(request):
 def all_post(request):
     # Grab all posts from database to pass to template
     postList = Post.objects.all()
+
+    #Grab page number for pagination purposes
+    page = request.GET.get('p', 1)
+    print(page)
     
     #Order posts by time and serialize time object
     postList = postList.order_by("-time").all()
     postList = [post.serialize for post in postList]
+
+    #Paginate list and set page number
+    paginateList = Paginator(postList,10)
+    postList = paginateList.page(page)
 
     return render(request, "network/allpost.html", {
         "postList": postList,
@@ -117,3 +126,9 @@ def like(request, post_id):
 
     postObj.save()
     return JsonResponse({"likes": postObj.likes})
+
+#Api route that gives paginated posts results by all provided usernames from argument
+@login_required
+def posts(request, usernames):
+    #Route assumes usernames will be separated by commas
+    usernamesList = usernames.split(",")

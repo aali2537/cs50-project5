@@ -30,6 +30,20 @@
             </div>
         </div>
         {% endfor %}
+        {% if postList.has_other_pages %}
+        <div class="row pad-bottom">
+            <div class ="col text-left">
+                {% if postList.has_previous %}
+                <a href="?p={{ postList.previous_page_number }}" class= "btn btn-primary">Prev</a>
+                {% endif %}
+            </div>
+            <div class ="col text-right">
+                {% if postList.has_next %}
+                <a href="?p={{ postList.next_page_number }}" class= "btn btn-primary">Next</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
         </div>
     </div>
 {% endblock %}

@@ -12,5 +12,6 @@ urlpatterns = [
     path("register", views.register, name="register"),
 
     #Api Routes
-    path("likes/<int:post_id>", views.like, name="like")
+    path("likes/<int:post_id>", views.like, name="like"),
+    path("posts/<str:usernames>", views.posts, name="posts")
 ]

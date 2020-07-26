@@ -3,13 +3,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+// Toggles the like value of the post inside the database
 function toggle_like(event) {
     //Check to make sure a user is logged in(since non logged in people can view all posts)
     if (event.target.dataset.user !== "") {
         //Grab current post number of clicked event
         currentPost = event.target.dataset.postnumber;
 
-        //Update database with request to toggle like and return result
+        //Update database with request to toggle like and return result/update page
         fetch(`/likes/${currentPost}`)
         .then(response => response.json())
         .then(email => {
