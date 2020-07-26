@@ -6,7 +6,9 @@
     <form method="POST">
         {% csrf_token %}
         <textarea name="content" placeholder="Type your content here!" required></textarea>
-        <input type=submit value="Post">
+        <div>
+            <input type=submit value="Post">
+        </div>
     </form>
 
 {% endblock %}
