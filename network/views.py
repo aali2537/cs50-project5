@@ -3,8 +3,10 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from datetime import datetime
+from django.contrib.auth.decorators import login_required
 
-from .models import User
+from .models import User, Post
 
 
 def index(request):
@@ -62,5 +64,18 @@ def register(request):
     else:
         return render(request, "network/register.html")
 
+@login_required(login_url= "/login")
 def new_post(request):
+    # Handle user creating a new post
+    if request.method == "POST":
+        # Grab user post information
+        print("does this hit?")
+        poster = request.user.get_username()
+        content = request.POST["content"]
+        time = datetime.now()
+
+        # Update database with new post
+        Post.objects.create(poster = poster, content = content, time = time)
+
+        return HttpResponseRedirect(reverse("index"))
     return render(request, "network/newpost.html")

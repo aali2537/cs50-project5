@@ -2,6 +2,11 @@
 
 {% block body %}
 
-<h2>New Post</h2>
+    <h1>New Post</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <textarea name="content" placeholder="Type your content here!" required></textarea>
+        <input type=submit value="Post">
+    </form>
 
 {% endblock %}
