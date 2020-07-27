@@ -8,7 +8,7 @@
         <div class ="box">
             <div class="row poster">
                 <div class="col text-left">
-                    {{ each.poster }}
+                    <a href="{% url 'profile' each.poster %}">{{ each.poster }}</a>
                 </div>
             </div>
             <div class="row">
