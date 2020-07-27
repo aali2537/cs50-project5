@@ -208,8 +208,10 @@ def follow(request, owner):
             #Remove a follower from the owner of profile page/remove following on follower database
             userObj.followers.remove(follower)
             follower.following.remove(userObj)
+
         #Update database and redirect to profile page
         userObj.save()
+
         #For some reason this redirect is doing a put and I can't figure out why
         return HttpResponseRedirect(reverse("profile", args=[owner,]))
 
@@ -248,5 +250,21 @@ def following(request):
     flatList = paginateList.page(page)
 
     return render(request, "network/following.html", {
-        "postList": flatList
+        "postList": flatList,
+        "currentUser": currentUser
     })
+
+@csrf_exempt
+@login_required
+def edit(request,post_id):
+    #Grab corresponding post object from database
+    postObj = Post.objects.get(id=post_id)
+
+    #Grab content from request
+    data = json.loads(request.body)
+    content = data.get('content')
+
+    postObj.content = content
+    postObj.save()
+    print(content)
+    return HttpResponse(status=204)

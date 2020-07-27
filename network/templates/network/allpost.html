@@ -15,7 +15,9 @@
             </div>
             <div class="row">
                 <div class="col text-left">
-                    {{ each.content }}
+                    <div class="content">
+                        {{ each.content }}
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -24,6 +26,11 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col text-left">
+                    {% if each.poster == currentUser %}
+                    <input type="submit" class="btn btn-primary editButton" value="Edit">
+                    {% endif %}
+                </div>
                 <div class="col text-right">
                     <i class="fa fa-heart" data-user="{{ currentUser }}" data-postNumber={{ each.id }}> {{ each.likes }}</i>
                 </div>

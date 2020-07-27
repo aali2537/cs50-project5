@@ -1,4 +1,4 @@
-textarea {
+.submit {
     min-height: 200px;
     min-width: 600px;
 }
@@ -25,4 +25,8 @@ textarea {
 
 .pad-bottom {
     padding-bottom: 2em;
+}
+
+textarea {
+    width: 80%;
 }
